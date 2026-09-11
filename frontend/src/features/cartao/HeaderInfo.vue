@@ -1,22 +1,41 @@
-<script setup></script>
+<script setup>
+import { computed, onMounted, ref } from 'vue';
+import { findByCpf } from '../../shared/services/pacienteServices'
+
+const cpf = localStorage.getItem('paciente-CPF')
+const paciente = ref(null);
+
+onMounted(async () => {
+  const responsePac = await findByCpf(cpf)
+  paciente.value = responsePac.data[0]
+  console.log(paciente.value)
+  new Date(paciente.value.dataNascimento).toLocaleDateString('pt-BR')
+})
+
+const dataNascimentoFormatada = computed(() => {
+  if(!paciente.value) return ''
+  return new Date(paciente.value.dataNascimento).toLocaleDateString('pt-BR')
+})
+
+</script>
 <!-- HTML -->
 <template>
-  <header class="header">
+  <header class="header" v-if="paciente">
     <span class="info">
       <p class="label">Nome do Paciente:</p>
-      <p class="value">nome da pesso</p>
+      <p class="value">{{paciente.nome}}</p>
     </span>
 
     <span class="info">
       <p class="label">Data de Nascimento</p>
-      <p class="value">01 / 02 / 1999</p>
+      <p class="value">{{dataNascimentoFormatada}}</p>
     </span>
 
     <span class="info">
       <p class="label">CPF:</p>
-      <p class="value">05277133500</p>
+      <p class="value">{{ cpf }}</p>
     </span>
-    <p id="id-paciente">ID do Pacinete: 1111111</p>
+    <p id="id-paciente">ID do Pacinete: {{ paciente.id }}</p>
   </header>
 </template>
 
