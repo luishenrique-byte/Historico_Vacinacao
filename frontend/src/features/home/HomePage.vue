@@ -70,7 +70,8 @@ function goToAuthPage(tipo) {
   align-items: center;
   gap: 30px;
   border-radius: 11px;
-  background: #3ac4f6;
-  font-weight: 700;
+  background: #5d8dd4;
+  color: #fff;
+  font-weight: 500;
 }
 </style>
