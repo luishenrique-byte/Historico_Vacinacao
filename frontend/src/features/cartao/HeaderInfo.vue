@@ -1,13 +1,14 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
-import { findByCpf } from '../../shared/services/pacienteServices'
+import { findById } from '../../shared/services/pacienteServices'
 
 const cpf = localStorage.getItem('paciente-CPF')
+const id = localStorage.getItem('paciente-id')
 const paciente = ref(null);
 
 onMounted(async () => {
-  const responsePac = await findByCpf(cpf)
-  paciente.value = responsePac.data[0]
+  const responsePac = await findById(id)
+  paciente.value = responsePac.data
   console.log(paciente.value)
   new Date(paciente.value.dataNascimento).toLocaleDateString('pt-BR')
 })
