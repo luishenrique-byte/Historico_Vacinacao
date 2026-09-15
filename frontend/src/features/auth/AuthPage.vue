@@ -7,6 +7,7 @@ import InputText from '@/shared/components/InputText.vue'
 import imgEnfermeira from '../../assets/enfermeira_256x256_pc.png'
 import imgPaciente from '../../assets/paciente_256x256_pc.png'
 import { findByCpf } from '../../shared/services/pacienteServices'
+import SelectPatient from './SelectPatient.vue'
 
 const route = useRoute()
 
@@ -29,22 +30,53 @@ const userImg = userType === 'paciente' ? imgPaciente : imgEnfermeira
 const userLabel = userType === 'paciente' ? 'Paciente' : 'Profissional'
 const userButtonLabel = userType === 'paciente' ? 'Cartão de Vacina' : 'WorkFlow'
 
+const mostrarModal = ref(false)
+const listPatientByCPF = ref([])
+const idPatient = ref(null)
 const cpf = ref('')
 
-async function login() {
+function login() {
   if (userType === 'paciente') {
-    try {
-      ;(await findByCpf(cpf.value)).data
-      localStorage.setItem('tipo', 'paciente')
-      localStorage.setItem('paciente-CPF', cpf.value)
-      router.push('/paciente/vaccine')
-    } catch (e) {
-      showError(e.response.data.mensagem)
-    }
+    authPatient();
   } else if (userType === 'profissional') {
     // TODO: implementar login do profissional
   }
 }
+
+async function authPatient(){
+  try {
+      listPatientByCPF.value = (await findByCpf(cpf.value)).data
+    
+      if(!isIdPatientSet()){
+        if(listPatientByCPF.value.length > 1){
+          mostrarModal.value = true;
+          return;
+        }
+      }
+
+      localStorage.setItem('tipo', 'paciente');
+      localStorage.setItem('paciente-CPF', cpf.value);
+      localStorage.setItem('paciente-id',idPatient.value);
+      router.push('/paciente/vaccine');
+    } catch (e) {
+      console.log(e);
+      showError(e.message);
+    }
+}
+function isIdPatientSet(){
+  if(idPatient.value != null){ 
+    return true;
+  } else {
+    return false;
+  }
+}
+function finalizarSelectPatient(idRecebido){
+  idPatient.value = idRecebido;
+  mostrarModal.value = false;
+
+  authPatient();
+}
+
 </script>
 <!-- HTML -->
 <template>
@@ -62,6 +94,13 @@ async function login() {
 
     <button class="btn-acess" @click="login">Acessar {{ userButtonLabel }}</button>
   </span>
+
+  <SelectPatient 
+  v-if="mostrarModal" 
+  :list-patient="listPatientByCPF"
+  @select-patient="finalizarSelectPatient($event)"
+  
+  ></SelectPatient>
 </template>
 
 <!-- STYLE -->
