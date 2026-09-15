@@ -2,7 +2,7 @@
 <script setup>
 import { useError } from '../../shared/composables/useError'
 import { useRoute, useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import InputText from '@/shared/components/InputText.vue'
 import imgEnfermeira from '../../assets/enfermeira_256x256_pc.png'
 import imgPaciente from '../../assets/paciente_256x256_pc.png'
@@ -14,6 +14,10 @@ const route = useRoute()
 const router = useRouter()
 
 const { showError } = useError()
+
+onMounted(() => {
+  localStorage.clear();
+})
 
 // route.params.tipo
 const userType = route.params.tipo //Recebe o tipo atráves da rota
