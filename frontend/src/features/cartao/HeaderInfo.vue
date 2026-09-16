@@ -9,7 +9,6 @@ const paciente = ref(null);
 onMounted(async () => {
   const responsePac = await findById(id)
   paciente.value = responsePac.data
-  console.log(paciente.value)
   new Date(paciente.value.dataNascimento).toLocaleDateString('pt-BR')
 })
 
