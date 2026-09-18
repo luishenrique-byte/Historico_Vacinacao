@@ -148,4 +148,16 @@ onMounted(() => {
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
+
+/* Vaccine list css */
+@media print {
+    .conteiner-registros {
+        overflow: visible;
+        max-height: none;
+        height: auto;
+    }
+    .card-vaccine {
+        height: auto !important;
+    }
+}
 </style>
