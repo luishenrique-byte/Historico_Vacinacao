@@ -3,10 +3,13 @@
 import { useError } from '../../shared/composables/useError'
 import { useRoute, useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue'
+import { findByCpf as findPacienteByCpf } from '../../shared/services/pacienteServices'
+import { filterAtivo } from '../../shared/services/profissionalServices'
 import InputText from '@/shared/components/InputText.vue'
 import imgEnfermeira from '../../assets/enfermeira_256x256_pc.png'
 import imgPaciente from '../../assets/paciente_256x256_pc.png'
 import SelectPatient from './components/SelectPatient.vue'
+
 
 const route = useRoute()
 
@@ -42,13 +45,27 @@ function login() {
   if (userType === 'paciente') {
     authPatient();
   } else if (userType === 'profissional') {
-    // TODO: implementar login do profissional
+    authProfissional();
+  }
+}
+
+async function authProfissional() {
+  try{    
+    const profissional = (await filterAtivo(cpf.value)).data
+    
+    localStorage.setItem('tipo', 'profissional');
+    localStorage.setItem('profissional-CPF', cpf.value);
+    localStorage.setItem('profissional-id', profissional.id);
+    router.push('/profissional/workbench');
+  
+  } catch(e){
+    showError(e.response.data.mensagem);
   }
 }
 
 async function authPatient(){
   try {
-      listPatientByCPF.value = (await findByCpf(cpf.value)).data
+      listPatientByCPF.value = (await findPacienteByCpf(cpf.value)).data
     
       if(!isIdPatientSet()){
         if(listPatientByCPF.value.length > 1){
@@ -62,8 +79,7 @@ async function authPatient(){
       localStorage.setItem('paciente-id',idPatient.value);
       router.push('/paciente/vaccine');
     } catch (e) {
-      console.log(e);
-      showError(e.message);
+      showError(e.response.data.mensagem);
     }
 }
 function isIdPatientSet(){
