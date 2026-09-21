@@ -41,7 +41,7 @@ public class ProfissionalController {
         return service.findByCnpj(cnpj);
     }
 
-    @GetMapping("/filtrarAtivos")
+    @GetMapping("/filtrarAtivo")
     @ResponseStatus(HttpStatus.OK)
     public ProfissionalResponse findAtivoByCpf(@RequestParam String cpf){
         return service.findAtivoByCpf(cpf);
