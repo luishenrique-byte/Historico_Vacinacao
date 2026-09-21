@@ -43,8 +43,8 @@ public class ProfissionalController {
 
     @GetMapping("/filtrarAtivos")
     @ResponseStatus(HttpStatus.OK)
-    public List<ProfissionalResponse> findByAtivo(){
-        return service.findByAtivo();
+    public ProfissionalResponse findAtivoByCpf(@RequestParam String cpf){
+        return service.findAtivoByCpf(cpf);
     }
 
     @PostMapping
