@@ -6,8 +6,7 @@ import { onMounted, ref } from 'vue'
 import InputText from '@/shared/components/InputText.vue'
 import imgEnfermeira from '../../assets/enfermeira_256x256_pc.png'
 import imgPaciente from '../../assets/paciente_256x256_pc.png'
-import { findByCpf } from '../../shared/services/pacienteServices'
-import SelectPatient from './SelectPatient.vue'
+import SelectPatient from './components/SelectPatient.vue'
 
 const route = useRoute()
 

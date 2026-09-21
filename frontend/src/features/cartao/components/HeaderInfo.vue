@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
-import { findById } from '../../shared/services/pacienteServices'
+import { findById } from '../../../shared/services/pacienteServices'
 
 const cpf = localStorage.getItem('paciente-CPF')
 const id = localStorage.getItem('paciente-id')

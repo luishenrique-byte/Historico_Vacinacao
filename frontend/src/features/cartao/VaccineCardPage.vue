@@ -1,8 +1,8 @@
 <script setup>
 import BackButton from '@/shared/components/BackButton.vue';
-import HeaderInfo from './HeaderInfo.vue'
-import PrintButton from './PrintButton.vue';
-import VaccineList from './VaccineList.vue';
+import HeaderInfo from './components/HeaderInfo.vue'
+import PrintButton from './components/PrintButton.vue';
+import VaccineList from './components/VaccineList.vue';
 </script>
 
 <!-- HTML -->
