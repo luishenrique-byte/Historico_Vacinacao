@@ -11,6 +11,7 @@ import com.luishenrique.cap.Historico_Vacinacao.dto.profissional.ProfissionalRes
 import com.luishenrique.cap.Historico_Vacinacao.dto.unidade.UnidadeResponse;
 import com.luishenrique.cap.Historico_Vacinacao.dto.utils.EnderecoResponse;
 import com.luishenrique.cap.Historico_Vacinacao.exception.BadRequestException;
+import com.luishenrique.cap.Historico_Vacinacao.exception.ForbiddenException;
 import com.luishenrique.cap.Historico_Vacinacao.exception.NotFoundException;
 import com.luishenrique.cap.Historico_Vacinacao.utils.CnpjUtils;
 import com.luishenrique.cap.Historico_Vacinacao.utils.CpfUtils;
@@ -68,12 +69,27 @@ public class ProfissionalService {
                 .toList();
     }
 
-    public List<ProfissionalResponse> findByAtivo(){
+    public ProfissionalResponse findAtivoByCpf(String cpf){
 
-        return repository.findAll().stream()
+        if (!CpfUtils.isValid(cpf)){
+            throw new BadRequestException("O CPF: " + cpf + " Não é valido, verifique se o formato ou sequência está correta informado. Formatos aceitos: (000.000.000-00 ou 11111111111)");
+        }
+
+        cpf = cpf.replaceAll(REGEX_REMOVE_NAO_NUMEROS,"");
+
+        List<ProfissionalEntity> ativos = repository.findByDocumento(cpf).stream()
                 .filter(m -> m.getAtivo())
-                .map(m -> toResponse(m))
                 .toList();
+
+        if (ativos.isEmpty()) {
+            throw new ForbiddenException("Não há Profissional ativo vinculado a este CPF");
+        }
+
+        if (ativos.size() > 1) {
+            throw new ForbiddenException("Esperado exatamente 1 usuário ativo, encontrado: " + ativos.size());
+        }
+
+        return toResponse(ativos.get(0));
 
     }
     public ProfissionalResponse save(ProfissionalRequest request){

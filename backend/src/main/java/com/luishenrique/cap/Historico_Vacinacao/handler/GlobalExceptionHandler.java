@@ -3,6 +3,7 @@ package com.luishenrique.cap.Historico_Vacinacao.handler;
 import com.luishenrique.cap.Historico_Vacinacao.exception.BadRequestException;
 import com.luishenrique.cap.Historico_Vacinacao.exception.ErroResponse;
 import com.luishenrique.cap.Historico_Vacinacao.exception.NotFoundException;
+import com.luishenrique.cap.Historico_Vacinacao.exception.ForbiddenException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -26,6 +27,15 @@ public class GlobalExceptionHandler {
         return new ErroResponse(
                 e.getMessage(),
                 HttpStatus.BAD_REQUEST.value()
+        );
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErroResponse handlerForbiddenException(ForbiddenException e){
+        return new ErroResponse(
+                e.getMessage(),
+                HttpStatus.FORBIDDEN.value()
         );
     }
 
