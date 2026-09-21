@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../features/home/HomePage.vue'
 import AuthPage from '../features/auth/AuthPage.vue'
 import VaccineCardPage from '../features/cartao/VaccineCardPage.vue'
+import WorkbenchPage from '../features/workbench/WorkbenchPage.vue'
 
 const routes = [
   { path: '/', component: HomePage },
@@ -10,6 +11,11 @@ const routes = [
     meta: { requiresAuth: true, tipo: 'paciente' },
     path: '/paciente/vaccine',
     component: VaccineCardPage,
+  },
+  {
+    meta: { requiresAuth: true, tipo: 'profissional' },
+    path: '/profissional/workbench',
+    component: WorkbenchPage
   },
   { path: '/:pathMatch(.*)*', redirect: '/' },
 ]
