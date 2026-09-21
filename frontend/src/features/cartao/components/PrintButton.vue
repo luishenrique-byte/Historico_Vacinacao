@@ -13,7 +13,7 @@ function imprimir(){
         aria-label="Imprimir informações"
         @click="imprimir()"
     >
-        <img class="img-impressora" src="../../assets/impressora_100x100_pc.png" alt="Ícone de impressora">
+        <img class="img-impressora" src="../../../assets/impressora_100x100_pc.png" alt="Ícone de impressora">
     </button>
 </template>
 
