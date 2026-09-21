@@ -4,6 +4,8 @@ import com.luishenrique.cap.Historico_Vacinacao.database.models.ENUM.TipoProfiss
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "profissional")
 @Getter
@@ -19,6 +21,9 @@ public class ProfissionalEntity {
 
     @Column(nullable = false)
     private String nome;
+
+    @Column(name = "data_nascimento", nullable = false)
+    private LocalDate dataNascimento;
 
     @Column(nullable = false, length = 14)
     private String documento;

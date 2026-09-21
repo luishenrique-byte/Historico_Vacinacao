@@ -142,6 +142,7 @@ public class RegistroService {
                 new ProfissionalResponse(
                         entity.getProfissional().getId(),
                         entity.getProfissional().getNome(),
+                        entity.getProfissional().getDataNascimento(),
                         entity.getProfissional().getDocumento(),
                         entity.getProfissional().getCargo(),
                         entity.getProfissional().getTipoProf(),
