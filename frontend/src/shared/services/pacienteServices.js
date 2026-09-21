@@ -5,3 +5,7 @@ const BASE_URL = 'http://localhost:8082/v1/paciente'
 export function findByCpf(cpf) {
   return axios.get(BASE_URL + '/buscar?cpf=' + cpf)
 }
+
+export function findById(id){
+  return axios.get(BASE_URL + '/'+id)
+}

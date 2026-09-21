@@ -39,3 +39,19 @@ a {
   text-decoration: none;
   color: inherit;
 }
+/* css global */
+@media print{
+  html,body, main{
+    background: #5d8dd4 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .main{
+    height: auto !important;
+  }
+
+  #__vue-devtools-container__ {
+    display: none;
+  }
+}
