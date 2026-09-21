@@ -1,32 +1,46 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
-import { findById } from '../../../shared/services/pacienteServices'
+import { findById as findPacienteById} from '../../../shared/services/pacienteServices'
+import { findById as findProfissionalById} from '../../../shared/services/profissionalServices';
 
-const cpf = localStorage.getItem('paciente-CPF')
-const id = localStorage.getItem('paciente-id')
-const paciente = ref(null);
+const cpf = localStorage.getItem('cpf')
+const id = localStorage.getItem('id')
+const pessoa = ref(null);
 
 onMounted(async () => {
-  const responsePac = await findById(id)
-  paciente.value = responsePac.data
-  new Date(paciente.value.dataNascimento).toLocaleDateString('pt-BR')
+
+  let response = null
+
+  if(localStorage.getItem('tipo') === 'paciente'){
+
+    response = (await findPacienteById(id)).data
+
+  } else if(localStorage.getItem('tipo') === 'profissional'){
+
+    response = (await findProfissionalById(id)).data
+
+  }
+
+  pessoa.value = response
+  
+  new Date(pessoa.value.dataNascimento).toLocaleDateString('pt-BR')
 })
 
 const dataNascimentoFormatada = computed(() => {
-  if(!paciente.value) return ''
-  return new Date(paciente.value.dataNascimento).toLocaleDateString('pt-BR')
+  if(!pessoa.value) return ''
+  return new Date(pessoa.value.dataNascimento).toLocaleDateString('pt-BR')
 })
 
 </script>
 <!-- HTML -->
 <template>
-  <header class="header" v-if="paciente">
+  <header class="header" v-if="pessoa">
     
     <!-- Grupo da Esquerda: Informações Principais -->
     <div class="info-group">
       <div class="info-block">
-        <span class="label">Paciente</span>
-        <span class="value nome">{{paciente.nome}}</span>
+        <span class="label">Nome</span>
+        <span class="value nome">{{pessoa.nome}}</span>
       </div>
 
       <div class="info-block">
@@ -43,7 +57,7 @@ const dataNascimentoFormatada = computed(() => {
     <!-- Grupo da Direita: ID do Paciente -->
     <div class="id-badge">
       <span class="label">ID Registro</span>
-      <span class="value highlight">#{{ paciente.id }}</span>
+      <span class="value highlight">#{{ pessoa.id }}</span>
     </div>
 
   </header>
