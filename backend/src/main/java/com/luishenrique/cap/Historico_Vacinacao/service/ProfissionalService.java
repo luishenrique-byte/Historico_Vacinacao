@@ -157,6 +157,7 @@ public class ProfissionalService {
         ProfissionalResponse response = new ProfissionalResponse(
                 entity.getId(),
                 entity.getNome(),
+                entity.getDataNascimento(),
                 entity.getDocumento(),
                 entity.getCargo(),
                 entity.getTipoProf(),

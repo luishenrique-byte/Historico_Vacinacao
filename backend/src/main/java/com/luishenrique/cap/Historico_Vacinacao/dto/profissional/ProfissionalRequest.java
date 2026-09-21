@@ -4,8 +4,11 @@ import com.luishenrique.cap.Historico_Vacinacao.database.models.ENUM.TipoProfiss
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
+
 public record ProfissionalRequest(
         @NotBlank String nome,
+        @NotBlank LocalDate dataNascimento,
         @NotBlank String documento,
         @NotBlank String cargo,
         @NotNull TipoProfissional tipoProf,
