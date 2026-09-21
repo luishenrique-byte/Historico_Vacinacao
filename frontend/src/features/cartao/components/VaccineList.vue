@@ -2,7 +2,7 @@
 import { findAllByPaciente } from '@/shared/services/registroServices';
 import { onMounted, ref } from 'vue';
 
-const idPaciente = localStorage.getItem('paciente-id')
+const idPaciente = localStorage.getItem('id')
 
 const listRegistros = ref([])
 

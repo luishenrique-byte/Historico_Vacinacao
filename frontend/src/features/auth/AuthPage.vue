@@ -54,8 +54,8 @@ async function authProfissional() {
     const profissional = (await filterAtivo(cpf.value)).data
     
     localStorage.setItem('tipo', 'profissional');
-    localStorage.setItem('profissional-CPF', cpf.value);
-    localStorage.setItem('profissional-id', profissional.id);
+    localStorage.setItem('cpf', cpf.value);
+    localStorage.setItem('id', profissional.id);
     router.push('/profissional/workbench');
   
   } catch(e){
@@ -75,8 +75,8 @@ async function authPatient(){
       }
 
       localStorage.setItem('tipo', 'paciente');
-      localStorage.setItem('paciente-CPF', cpf.value);
-      localStorage.setItem('paciente-id',idPatient.value);
+      localStorage.setItem('cpf', cpf.value);
+      localStorage.setItem('id',idPatient.value);
       router.push('/paciente/vaccine');
     } catch (e) {
       showError(e.response.data.mensagem);
