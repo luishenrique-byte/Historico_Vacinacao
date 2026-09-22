@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
-import { findById as findPacienteById} from '../../../shared/services/pacienteServices'
-import { findById as findProfissionalById} from '../../../shared/services/profissionalServices';
+import { findById as findPacienteById} from '../services/pacienteServices'
+import { findById as findProfissionalById} from '../services/profissionalServices';
 
 const cpf = localStorage.getItem('cpf')
 const id = localStorage.getItem('id')
