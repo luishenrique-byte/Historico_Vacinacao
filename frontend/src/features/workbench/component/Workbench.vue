@@ -24,6 +24,7 @@ import FormsRegistro from './registro/FormsRegistro.vue';
         <!-- Área principal à direita (Branca) -->
         <div class="conteudo-principal">
             <!-- components vão aqui -->
+            <FormsRegistro></FormsRegistro>
         </div>
     </div>
 </template>
@@ -101,5 +102,19 @@ import FormsRegistro from './registro/FormsRegistro.vue';
     /* Opcional: Adiciona scroll interno caso o componente 
        filho seja muito grande, evitando que o layout quebre */
     overflow-y: auto; 
+}
+.conteudo-principal::-webkit-scrollbar{
+width: 10px;
+}
+/* Track (fundo da scrollbar) — remove o branco */
+.conteudo-principal::-webkit-scrollbar-track {
+  background: transparent;  
+}
+.conteudo-principal::-webkit-scrollbar-thumb {
+  background: #4A76B8;
+  border-radius: 5px;
+}
+.conteudo-principal::-webkit-scrollbar-thumb:hover {
+  background: #38598a;
 }
 </style>
