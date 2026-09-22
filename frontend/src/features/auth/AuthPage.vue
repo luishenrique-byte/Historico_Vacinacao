@@ -7,7 +7,7 @@ import { findByCpf as findPacienteByCpf } from '../../shared/services/pacienteSe
 import { filterAtivo } from '../../shared/services/profissionalServices'
 import InputText from '@/shared/components/InputText.vue'
 import imgEnfermeira from '../../assets/enfermeira_256x256_pc.png'
-import imgPaciente from '../../assets/paciente_256x256_pc.png'
+import imgPaciente from '../../assets/paciente_preto_256x256_pc.png'
 import SelectPatient from './components/SelectPatient.vue'
 
 

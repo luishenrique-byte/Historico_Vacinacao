@@ -17,7 +17,7 @@ function goToAuthPage(tipo) {
     </span>
 
     <span class="button-card" @click="goToAuthPage('paciente')">
-      <img class="img" draggable="false" src="../../assets/paciente_256x256_pc.png" />
+      <img class="img" draggable="false" src="../../assets/paciente_preto_256x256_pc.png" />
 
       <span class="user-type">Paciente</span>
     </span>
